@@ -4,6 +4,6 @@
 
 @layer base {
   button {
-    @apply p-2 rounded-lg bg-secondary/50 hover:opacity-80;
+    @apply p-2 rounded-lg bg-primary/50 hover:opacity-80;
   }
 }
