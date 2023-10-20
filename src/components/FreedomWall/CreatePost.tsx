@@ -64,7 +64,7 @@ export default function CreatePost({}: CreatePostProps) {
     <section
       className={`${
         !isShowing ? "w-0" : "w-96"
-      } overflow-hidden absolute z-10 top-20 right-0 h-full transition-all shadow-md bg-slate-200`}
+      } overflow-hidden fixed z-10 top-0 pt-20 right-0 transition-all shadow-lg bg-slate-200 h-full `}
     >
       <div className="flex flex-col items-end p-4 gap-5 w-full h-full">
         <h3 className="text-xl font-semibold">Share your thoughts!</h3>
