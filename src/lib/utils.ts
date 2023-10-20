@@ -12,7 +12,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export function validateInputData(inputData: InputDataProps): boolean {
   for (const key in inputData) {
-    if (!(inputData as any)[key]) return false;
+    let data = (inputData as any)[key];
+    if (!data || data.split(' ').length > 200) return false;
   }
   return true;
 }

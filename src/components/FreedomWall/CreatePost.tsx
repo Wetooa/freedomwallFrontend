@@ -50,7 +50,10 @@ export default function CreatePost({}: CreatePostProps) {
 
   const handlePost = async () => {
     if (!validateInputData(inputData)) {
-      toast.error("Invalid input data", defaultToastConfig);
+      toast.error(
+        "Invalid input data (use less than 200 words)",
+        defaultToastConfig
+      );
       return;
     }
 
@@ -60,8 +63,8 @@ export default function CreatePost({}: CreatePostProps) {
   return (
     <section
       className={`${
-        !isShowing ? "w-0" : "flex-1"
-      } overflow-hidden h-full transition-all shadow-md bg-primary/5`}
+        !isShowing ? "w-0" : "w-96"
+      } overflow-hidden absolute z-10 top-20 right-0 h-full transition-all shadow-md bg-slate-200`}
     >
       <div className="flex flex-col items-end p-4 gap-5 w-full h-full">
         <h3 className="text-xl font-semibold">Share your thoughts!</h3>
