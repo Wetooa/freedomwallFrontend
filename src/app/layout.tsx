@@ -31,7 +31,7 @@ export default function RootLayout({
         >
           <ToastContainer />
           <Navbar />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 min-h-screen h-fit">{children}</div>
           <Footer />
         </body>
       </Providers>
