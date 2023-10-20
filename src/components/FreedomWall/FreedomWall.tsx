@@ -3,6 +3,7 @@
 import { DataProps } from "@/types/interfaces";
 import CreatePost from "./CreatePost";
 import Posts from "./Posts";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface FreedomWallProps {
   data: DataProps[];

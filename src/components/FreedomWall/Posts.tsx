@@ -12,7 +12,7 @@ export default function Posts({ data }: PostsProps) {
   return (
     <section
       onClick={() => dispatch(hideCreatePost())}
-      className="flex-[2] flex flex-wrap gap-2 p-4  justify-around h-full"
+      className="flex-[2] p-4 justify-center h-full columns-2 box-border mx-auto"
     >
       {data?.map((entry) => {
         return <Entry key={entry._id} {...entry} />;
