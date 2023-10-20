@@ -1,14 +1,39 @@
 import { EMPTY_INPUT_DATA, LTG_MESSAGE } from "@/lib/constants";
 import { RootState } from "@/redux/store";
 import { InputDataProps } from "@/types/interfaces";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
 import { useSelector } from "react-redux";
 import { validateInputData } from "@/lib/utils";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { defaultToastConfig } from "@/lib/configs";
 
 interface CreatePostProps {}
+
+async function postMessage(
+  inputData: InputDataProps,
+  setInputData: Dispatch<SetStateAction<InputDataProps>>
+) {
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+  await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(inputData),
+    cache: "no-cache",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    next: {},
+  })
+    .then((res) => {
+      if (res.status != 200) {
+        throw new Error(`Status: ${res.status} | ${res.statusText}`);
+      }
+      toast.success("Post created successfully", defaultToastConfig);
+      setInputData(EMPTY_INPUT_DATA);
+    })
+    .catch((err) => {
+      toast.error(err.message, defaultToastConfig);
+    });
+}
 
 export default function CreatePost({}: CreatePostProps) {
   const [inputData, setInputData] = useState<InputDataProps>(EMPTY_INPUT_DATA);
@@ -23,28 +48,20 @@ export default function CreatePost({}: CreatePostProps) {
     setInputData({ ...inputData, [e.target.name]: e.target.value });
   };
 
-  const handlePost = () => {
+  const handlePost = async () => {
     if (!validateInputData(inputData)) {
       toast.error("Invalid input data", defaultToastConfig);
       return;
     }
 
-    const url = process.env.BACKEND_URL ?? "";
-    axios
-      .post(url, inputData)
-      .then(() => {
-        toast.success("Post created successfully", defaultToastConfig);
-      })
-      .catch((err) => {
-        toast.error(err.message, defaultToastConfig);
-      });
+    postMessage(inputData, setInputData);
   };
 
   return (
     <section
       className={`${
         !isShowing ? "w-0" : "flex-1"
-      } overflow-hidden transition-all shadow-md bg-primary/5`}
+      } overflow-hidden h-full transition-all shadow-md bg-primary/5`}
     >
       <div className="flex flex-col items-end p-4 gap-5 w-full h-full">
         <h3 className="text-xl font-semibold">Share your thoughts!</h3>
@@ -56,6 +73,7 @@ export default function CreatePost({}: CreatePostProps) {
             name="codeName"
             type="text"
             placeholder="ex. LTG"
+            value={inputData.codeName}
             onChange={handleOnChange}
           />
         </div>
@@ -66,6 +84,7 @@ export default function CreatePost({}: CreatePostProps) {
             className="border-b-slate-500 border-b focus:outline-none w-full p-2 h-48"
             name="message"
             placeholder={`ex. ${LTG_MESSAGE}`}
+            value={inputData.message}
             onChange={handleOnChange}
           />
         </div>

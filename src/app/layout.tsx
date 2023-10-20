@@ -24,7 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body
-          className={cn(inter.className, "flex flex-col w-screen h-screen")}
+          className={cn(
+            inter.className,
+            "flex flex-col min-h-screen bg-slate-100"
+          )}
         >
           <ToastContainer />
           <Navbar />

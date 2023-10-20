@@ -8,11 +8,14 @@ export default async function Home() {
 }
 
 async function getData() {
-  const url = process.env.BACKEND_URL ?? "";
-  const entries = await fetch(url, {
-    next: { revalidate: 3600 },
+  const url = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
+  // no cache for now
+  const entries: DataProps[] = await fetch(url, {
+    method: "GET",
+    cache: "no-cache",
   })
     .then((res) => res.json())
     .catch((err) => console.log(err));
-  return entries;
+
+  return entries.reverse();
 }
