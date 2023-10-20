@@ -10,7 +10,7 @@ export default async function Home() {
 async function getData() {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
   // no cache for now
-  const entries: DataProps[] = await fetch(url, {
+  let entries: DataProps[] = await fetch(url, {
     method: "GET",
     cache: "no-cache",
   })
