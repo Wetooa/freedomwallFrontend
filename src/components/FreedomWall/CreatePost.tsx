@@ -2,17 +2,15 @@ import { EMPTY_INPUT_DATA, LTG_MESSAGE } from "@/lib/constants";
 import { RootState } from "@/redux/store";
 import { InputDataProps } from "@/types/interfaces";
 import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { validateInputData } from "@/lib/utils";
 import { toast } from "react-toastify";
 import { defaultToastConfig } from "@/lib/configs";
+import { hideCreatePost } from "@/redux/features/posts/createPostSlice";
 
 interface CreatePostProps {}
 
-async function postMessage(
-  inputData: InputDataProps,
-  setInputData: Dispatch<SetStateAction<InputDataProps>>
-) {
+async function postMessage(inputData: InputDataProps) {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
   await fetch(url, {
     method: "POST",
@@ -28,7 +26,6 @@ async function postMessage(
         throw new Error(`Status: ${res.status} | ${res.statusText}`);
       }
       toast.success("Post created successfully", defaultToastConfig);
-      setInputData(EMPTY_INPUT_DATA);
     })
     .catch((err) => {
       toast.error(err.message, defaultToastConfig);
@@ -36,6 +33,7 @@ async function postMessage(
 }
 
 export default function CreatePost({}: CreatePostProps) {
+  const dispatch = useDispatch();
   const [inputData, setInputData] = useState<InputDataProps>(EMPTY_INPUT_DATA);
 
   const { isShowing } = useSelector(
@@ -57,7 +55,9 @@ export default function CreatePost({}: CreatePostProps) {
       return;
     }
 
-    postMessage(inputData, setInputData);
+    postMessage(inputData);
+    setInputData(EMPTY_INPUT_DATA);
+    dispatch(hideCreatePost);
   };
 
   return (
@@ -72,7 +72,7 @@ export default function CreatePost({}: CreatePostProps) {
         <div className="w-full">
           <h5>Codename: </h5>
           <input
-            className="border-b-slate-500 border-b focus:outline-none w-full p-2"
+            className="border-b-slate-500 border-b focus:outline-none rounded-lg w-full p-2"
             name="codeName"
             type="text"
             placeholder="ex. LTG"
@@ -81,10 +81,10 @@ export default function CreatePost({}: CreatePostProps) {
           />
         </div>
 
-        <div className="w-full">
+        <div className="w-full flex-1 pb-4">
           <h5>Message: </h5>
           <textarea
-            className="border-b-slate-500 border-b focus:outline-none w-full p-2 h-48"
+            className="border-b-slate-500 border-b focus:outline-none rounded-lg w-full p-2 h-full"
             name="message"
             placeholder={`ex. ${LTG_MESSAGE}`}
             value={inputData.message}
