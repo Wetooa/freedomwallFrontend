@@ -7,3 +7,9 @@
     @apply p-2 rounded-lg bg-primary/50 hover:opacity-80;
   }
 }
+
+@layer components {
+  .entry {
+    @apply m-2 break-inside-avoid rounded-lg shadow-sm border border-slate-200 bg-slate-50 p-2 transition-all hover:brightness-105 hover:shadow-md hover:shadow-primary hover:scale-105 cursor-pointer;
+  }
+}

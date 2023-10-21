@@ -10,7 +10,7 @@ import { AiOutlineCloseCircle, AiFillCloseCircle } from "react-icons/ai";
 interface ShowPostModalProps {}
 
 export default function ShowPostModal({}: ShowPostModalProps) {
-  const { message, updatedAt, codeName, isShowing } = useSelector(
+  const { message, updatedAt, codeName } = useSelector(
     (state: RootState) => state.getPostReducer
   );
   const dispatch = useDispatch();
@@ -25,15 +25,11 @@ export default function ShowPostModal({}: ShowPostModalProps) {
   }
 
   return (
-    <section
-      className={`absolute w-full h-full top-0 z-10 
-      ${!isShowing && "hidden"}
-      `}
-    >
+    <section className={`absolute w-full h-full top-0 z-10 `}>
       <div className="w-full h-full fixed flex flex-col items-center justify-center">
         <div
           onClick={handleClose}
-          className="w-full h-full absolute bg-slate-500/20 hover:bg-slate-300/20 transition-all"
+          className="w-full h-full absolute bg-slate-500/20 transition-all"
         />
 
         <div className="p-6 cursor-default mx-10 max-w-lg relative rounded-lg shadow-md shadow-primary bg-white z-30 transition-all">

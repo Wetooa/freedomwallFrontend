@@ -3,17 +3,21 @@
 import { DataProps } from '@/types/interfaces';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-export interface ShowPostState extends DataProps {
+export interface GetPostState extends DataProps {
   isShowing: boolean;
+  data: DataProps[];
+  isLoadingData: boolean;
 }
 
-const initialState: ShowPostState= {
+const initialState: GetPostState = {
   isShowing: false,
   _id: undefined,
   createdAt: '',
   updatedAt: '',
   codeName: '',
-  message: ''
+  message: '',
+  data: [],
+  isLoadingData: true,
 }
 
 export const getPostSlice = createSlice({
@@ -29,9 +33,13 @@ export const getPostSlice = createSlice({
     hidePost: (state) => {
       state.isShowing = false;
     },
+    setData: (state, action: PayloadAction<DataProps[]>) => {
+      state.data = action.payload;
+      state.isLoadingData = false;
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { showPost, hidePost} = getPostSlice.actions
+export const { showPost, hidePost, setData} = getPostSlice.actions
 export default getPostSlice.reducer

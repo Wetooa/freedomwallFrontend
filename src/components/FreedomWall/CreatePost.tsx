@@ -2,19 +2,20 @@
 
 import { EMPTY_INPUT_DATA, LTG_MESSAGE } from "@/lib/constants";
 import { RootState } from "@/redux/store";
-import { InputDataProps } from "@/types/interfaces";
-import { ChangeEvent, Dispatch, SetStateAction, useState } from "react";
+import { DataProps, InputDataProps } from "@/types/interfaces";
+import { ChangeEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { validateInputData } from "@/lib/utils";
 import { toast } from "react-toastify";
 import { defaultToastConfig } from "@/lib/configs";
 import { hideCreatePost } from "@/redux/features/posts/createPostSlice";
+import { setData } from "@/redux/features/posts/getPostSlice";
 
 interface CreatePostProps {}
 
 async function postMessage(inputData: InputDataProps) {
   const url = process.env.NEXT_PUBLIC_BACKEND_URL ?? "";
-  await fetch(url, {
+  const newPost = await fetch(url, {
     method: "POST",
     body: JSON.stringify(inputData),
     cache: "no-cache",
@@ -28,15 +29,19 @@ async function postMessage(inputData: InputDataProps) {
         throw new Error(`Status: ${res.status} | ${res.statusText}`);
       }
       toast.success("Post created successfully", defaultToastConfig);
+      return res.json();
     })
     .catch((err) => {
       toast.error(err.message, defaultToastConfig);
     });
+
+  return newPost.message;
 }
 
 export default function CreatePost({}: CreatePostProps) {
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState<InputDataProps>(EMPTY_INPUT_DATA);
+  const { data } = useSelector((state: RootState) => state.getPostReducer);
 
   const { isShowing } = useSelector(
     (state: RootState) => state.createPostReducer
@@ -49,8 +54,7 @@ export default function CreatePost({}: CreatePostProps) {
   };
 
   const handlePost = async () => {
-    
-    let validation = validateInputData(inputData)
+    let validation = validateInputData(inputData);
 
     if (validation instanceof Error) {
       toast.error(
@@ -60,9 +64,10 @@ export default function CreatePost({}: CreatePostProps) {
       return;
     }
 
-    postMessage(inputData);
+    const newPost: DataProps = await postMessage(inputData);
     setInputData(EMPTY_INPUT_DATA);
-    dispatch(hideCreatePost);
+    dispatch(setData([newPost, ...data]));
+    dispatch(hideCreatePost());
   };
 
   return (
@@ -86,7 +91,7 @@ export default function CreatePost({}: CreatePostProps) {
           />
         </div>
 
-        <div className="w-full h-fit pb-4">
+        <div className="w-full flex-1 pb-4">
           <h5>Message: </h5>
           <textarea
             className="border-b-slate-500 border-b rounded-lg w-full p-2 h-full"

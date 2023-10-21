@@ -32,7 +32,7 @@ export default function RootLayout({
           <ToastContainer />
 
           <Navbar />
-          <div className="flex-1">{children}</div>
+          <div className="flex-1 mt-20">{children}</div>
           <Footer />
         </body>
       </Providers>
