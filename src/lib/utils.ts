@@ -4,6 +4,7 @@
 import { InputDataProps } from "@/types/interfaces"
 import { ClassValue, clsx } from "clsx"
 import {twMerge} from "tailwind-merge"
+import { MAX_WORDS_ON_MESSAGE } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -15,7 +16,7 @@ export function validateInputData(inputData: InputDataProps) {
     for (const key in inputData) {
       let data = (inputData as any)[key];
       if (!data) throw new Error("All fields must be provided!")
-      if (data.split(' ').length > 200) throw new Error("Input fields must have 200 words or less!")
+      if (data.split(' ').length > MAX_WORDS_ON_MESSAGE) throw new Error(`Input fields must have ${MAX_WORDS_ON_MESSAGE} words or less!`)
     }
   } catch (error) {
     return error;

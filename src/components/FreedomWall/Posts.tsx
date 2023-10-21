@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { hideCreatePost } from "@/redux/features/posts/createPostSlice";
-import Entry from "../Entry";
+import Entry from "./Entry";
 import { RootState } from "@/redux/store";
 import EntriesSkeleton from "../Loading/EntriesSkeleton";
 import Image from "next/image";

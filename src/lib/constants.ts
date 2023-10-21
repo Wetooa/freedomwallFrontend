@@ -10,3 +10,4 @@ export const LTG_MESSAGE = `Your life is everything. You serve all purpose. You 
 
 
 export const MAX_CHARACTER_DISPLAY = 200;
+export const MAX_WORDS_ON_MESSAGE = 400;
