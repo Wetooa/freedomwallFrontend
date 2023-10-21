@@ -17,9 +17,9 @@ export default function Navbar({}: NavbarProps) {
         <Image
           src={"/android-chrome-512x512.png"}
           alt="jake"
-          width={100}
-          height={100}
-          className="rounded-full p-5"
+          width={50}
+          height={50}
+          className="rounded-full m-2"
         />
         <h2 className="font-bold text-3xl">Freedom Wall</h2>
       </Link>

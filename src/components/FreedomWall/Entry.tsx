@@ -23,14 +23,18 @@ export default function Entry(data: EntryProps) {
       <h4 className="font-bold text-lg">{codeName}</h4>
       <p className="text-xs mb-1">{formattedDate}</p>
       <p>
-        {message.slice(0, MAX_CHARACTER_DISPLAY)}{" "}
-        {message.length > MAX_CHARACTER_DISPLAY && (
-          <span
-            onClick={() => dispatch(showPost)}
-            className="text-xs font-light text-slate-800 hover:underline"
-          >
-            See More...
-          </span>
+        {message.length > MAX_CHARACTER_DISPLAY ? (
+          <>
+            <span>{message.slice(0, MAX_CHARACTER_DISPLAY).trimEnd()}... </span>
+            <span
+              onClick={() => dispatch(showPost)}
+              className="text-xs font-light text-slate-800 hover:underline"
+            >
+              See More
+            </span>
+          </>
+        ) : (
+          <>{message}</>
         )}
       </p>
     </div>
