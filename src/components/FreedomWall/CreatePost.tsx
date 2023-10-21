@@ -1,3 +1,5 @@
+"use client";
+
 import { EMPTY_INPUT_DATA, LTG_MESSAGE } from "@/lib/constants";
 import { RootState } from "@/redux/store";
 import { InputDataProps } from "@/types/interfaces";
@@ -47,9 +49,12 @@ export default function CreatePost({}: CreatePostProps) {
   };
 
   const handlePost = async () => {
-    if (!validateInputData(inputData)) {
+    
+    let validation = validateInputData(inputData)
+
+    if (validation instanceof Error) {
       toast.error(
-        "Invalid input data (use less than 200 words)",
+        `Invalid input data! ${validation.message}`,
         defaultToastConfig
       );
       return;
@@ -63,8 +68,8 @@ export default function CreatePost({}: CreatePostProps) {
   return (
     <section
       className={`${
-        !isShowing ? "w-0" : "w-96"
-      } overflow-hidden fixed z-10 top-0 pt-20 right-0 transition-all shadow-lg bg-slate-200 h-full `}
+        !isShowing ? "w-0" : "sm:w-1/3 max-sm:w-full"
+      } overflow-hidden fixed z-10 top-0 pt-20 right-0 transition-all shadow-lg bg-gradient-to-b from-slate-200 to-slate-300 h-full `}
     >
       <div className="flex flex-col items-end p-4 gap-5 w-full h-full">
         <h3 className="text-xl font-semibold">Share your thoughts!</h3>
@@ -72,7 +77,7 @@ export default function CreatePost({}: CreatePostProps) {
         <div className="w-full">
           <h5>Codename: </h5>
           <input
-            className="border-b-slate-500 border-b focus:outline-none rounded-lg w-full p-2"
+            className="border-b-slate-500 border-b rounded-lg w-full p-2"
             name="codeName"
             type="text"
             placeholder="ex. LTG"
@@ -81,10 +86,10 @@ export default function CreatePost({}: CreatePostProps) {
           />
         </div>
 
-        <div className="w-full flex-1 pb-4">
+        <div className="w-full h-fit pb-4">
           <h5>Message: </h5>
           <textarea
-            className="border-b-slate-500 border-b focus:outline-none rounded-lg w-full p-2 h-full"
+            className="border-b-slate-500 border-b rounded-lg w-full p-2 h-full"
             name="message"
             placeholder={`ex. ${LTG_MESSAGE}`}
             value={inputData.message}

@@ -30,6 +30,7 @@ export default function RootLayout({
           )}
         >
           <ToastContainer />
+
           <Navbar />
           <div className="flex-1">{children}</div>
           <Footer />

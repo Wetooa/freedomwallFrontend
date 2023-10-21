@@ -10,12 +10,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export function validateInputData(inputData: InputDataProps): boolean {
-  for (const key in inputData) {
-    let data = (inputData as any)[key];
-    if (!data || data.split(' ').length > 200) return false;
+export function validateInputData(inputData: InputDataProps) {
+  try {
+    for (const key in inputData) {
+      let data = (inputData as any)[key];
+      if (!data) throw new Error("All fields must be provided!")
+      if (data.split(' ').length > 200) throw new Error("Input fields must have 200 words or less!")
+    }
+  } catch (error) {
+    return error;
   }
-  return true;
 }
 
 export function convertDate(date: string) {

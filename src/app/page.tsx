@@ -4,6 +4,17 @@ import { DataProps } from "@/types/interfaces";
 export default async function Home() {
   const data: DataProps[] = await getData();
 
+  // const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY ?? "";
+
+  // console.log(apiKey);
+
+  // const api = new ChatGPTAPI({
+  //   apiKey: apiKey,
+  // });
+
+  // const res = await api.sendMessage("Hello world");
+  // console.log(res.text);
+
   return <FreedomWall data={data} />;
 }
 

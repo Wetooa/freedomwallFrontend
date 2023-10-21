@@ -3,7 +3,7 @@
 import { DataProps } from "@/types/interfaces";
 import CreatePost from "./CreatePost";
 import Posts from "./Posts";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import ShowPostModal from "@/components/Modal/ShowPostModal";
 
 interface FreedomWallProps {
   data: DataProps[];
@@ -11,7 +11,8 @@ interface FreedomWallProps {
 
 export default function FreedomWall({ data }: FreedomWallProps) {
   return (
-    <main className="flex h-full">
+    <main className="relative flex h-full">
+      <ShowPostModal />
       <Posts data={data} />
       <CreatePost />
     </main>

@@ -18,7 +18,6 @@ export const createPostSlice = createSlice({
     showCreatePost: (state) => {
       state.isShowing = true;
     },
-
     hideCreatePost: (state) => {
       state.isShowing = false;
     },
