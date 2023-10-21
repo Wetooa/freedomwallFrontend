@@ -78,7 +78,7 @@ export default function Posts({}: PostsProps) {
   return (
     <section
       onClick={() => dispatch(hideCreatePost())}
-      className="w-full flex-[2] overflow-hidden p-4 justify-center h-full md:columns-2 columns-1 lg:columns-3"
+      className="w-full flex-[2] overflow-hidden p-4 justify-center h-full md:columns-2 columns-1 lg:columns-3 mt-20"
     >
       {content}
     </section>

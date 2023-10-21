@@ -2,7 +2,7 @@ interface pageProps {}
 
 export default function page({}: pageProps) {
   return (
-    <main className="p-4">
+    <main className="p-4 mt-20">
       <h2 className="text-3xl font-bold">About</h2>
       <p className="mt-2">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo neque

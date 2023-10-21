@@ -25,7 +25,7 @@ export default function ShowPostModal({}: ShowPostModalProps) {
   }
 
   return (
-    <section className={`absolute w-full h-full top-0 z-10 `}>
+    <section className={`absolute w-full h-full top-0 z-10`}>
       <div className="w-full h-full fixed flex flex-col items-center justify-center">
         <div
           onClick={handleClose}
@@ -35,9 +35,14 @@ export default function ShowPostModal({}: ShowPostModalProps) {
         <div className="p-6 cursor-default mx-10 max-w-lg relative rounded-lg shadow-md shadow-primary bg-white z-30 transition-all">
           <div
             onClick={handleClose}
-            className="absolute transition-all top-2 right-2 text-3xl hover:opacity-95 hover:scale-105 text-red-400"
+            className="absolute transition-all top-2 right-2 text-3xl hover:opacity-95 hover:scale-105 text-red-400 group"
           >
-            <AiOutlineCloseCircle />
+            <div className="group-hover:hidden">
+              <AiOutlineCloseCircle />
+            </div>
+            <div className="hidden group-hover:block">
+              <AiFillCloseCircle />
+            </div>
           </div>
           <h4 className="font-bold text-lg">{codeName}</h4>
           <p className="text-xs mb-1">{formattedDate}</p>
