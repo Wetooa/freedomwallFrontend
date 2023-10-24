@@ -19,7 +19,10 @@ export default function Entry(data: EntryProps) {
   }, [updatedAt]);
 
   return (
-    <div onClick={() => dispatch(showPost(data))} className="entry">
+    <div
+      onClick={() => dispatch(showPost(data))}
+      className="entry break-words overflow-hidden"
+    >
       <h4 className="font-bold text-lg">{codeName}</h4>
       <p className="text-xs mb-1">{formattedDate}</p>
       <p>

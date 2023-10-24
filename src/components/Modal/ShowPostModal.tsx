@@ -25,7 +25,9 @@ export default function ShowPostModal({}: ShowPostModalProps) {
   }
 
   return (
-    <section className={`absolute w-full h-full top-0 z-10`}>
+    <section
+      className={`absolute w-full h-full top-0 z-10 break-words overflow-hidden`}
+    >
       <div className="w-full h-full fixed flex flex-col items-center justify-center">
         <div
           onClick={handleClose}
