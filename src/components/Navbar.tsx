@@ -24,7 +24,7 @@ export default function Navbar({}: NavbarProps) {
           height={50}
           className="rounded-full m-2"
         />
-        <h2 className="font-bold text-3xl">{displayTitle}</h2>
+        <h2 className="font-bold text-3xl min-w-[300px]">{displayTitle}</h2>
       </Link>
 
       <div className="flex gap-10 max-sm:hidden">

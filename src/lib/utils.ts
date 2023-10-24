@@ -9,7 +9,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-
 export function validateInputData(inputData: InputDataProps) {
   try {
     for (const key in inputData) {
@@ -31,7 +30,6 @@ export function convertDate(date: string) {
     minute: '2-digit',
     second: "2-digit",
     hour12: true,
-    timeZone: 'UTC', 
   };
 
   const formattedDate = new Date(date).toLocaleString('en-US', options);
