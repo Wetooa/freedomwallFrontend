@@ -14,6 +14,7 @@ export function validateInputData(inputData: InputDataProps) {
     for (const key in inputData) {
       let data = (inputData as any)[key];
       if (!data) throw new Error("All fields must be provided!")
+      if (data.length > 1000) throw new Error("Too many characters")
       if (data.split(' ').length > MAX_WORDS_ON_MESSAGE) throw new Error(`Input fields must have ${MAX_WORDS_ON_MESSAGE} words or less!`)
     }
   } catch (error) {
