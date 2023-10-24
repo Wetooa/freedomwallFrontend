@@ -64,8 +64,9 @@ export default function CreatePost({}: CreatePostProps) {
       return;
     }
 
-    const newPost: DataProps = await postMessage(inputData);
+    let inptData = inputData;
     setInputData(EMPTY_INPUT_DATA);
+    const newPost: DataProps = await postMessage(inptData);
     dispatch(setData([newPost, ...data]));
     dispatch(hideCreatePost());
   };
